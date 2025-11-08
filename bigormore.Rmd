@@ -1,0 +1,113 @@
+
+---
+title: "Publish Big or Publish More - A Mathematical Framework for Deciding Whether to Bundle or Separate Scientific Findings"
+author: Wanjun Gu
+output: html_document
+---
+
+## Preface
+
+Sometimes researchers make a series of scientific findings and are often faced with the decision of either bundling some or all of these findings that are somewhat relevant, but also somewhat standalone, into one big paper and publish it in high-impact journals **or** separate these findings and focus on the specific merits of each finding and publish them separately. This is a hugely important question in the area of scientific research, as on one hand, publications are still a key mechanism for scientific communication, recognition, and career trajectory. But at the same time, the manner in which scientific knowledge is structured, framed, and presented is central to how the field interprets and absorbs that knowledge.
+
+Smaller papers that are tightly scoped are often more easily readable and digestible, and reviewers may find the clarity around one specific scientific advancement easier to evaluate. On the other hand, bundling related findings together into one larger “flagship” paper may present a coherent and holistic narrative of a system, capture more complete conceptual understanding, and may result in publication in higher-impact venues. However, such papers are harder to write, harder to read, and often risk confusing or overwhelming general reviewers.
+
+In the modern world of rapid idea iteration, open access bioRxiv posting, and large language model assisted scientific writing and scientific synthesis — being able to formally model this decision boundary is extremely important. Publishing is not just about citations and career incentives, but also about science progressing coherently, reproducibly, and in a useful direction for the community. All goals — clarity, contribution, visible impact, community reach, business utility, student recruitment, translational influence — are legitimate components of a utility function.
+
+Below, we formalize this trade-off mathematically. The math is adapted from the well-established mechanism design theory for revenue maximization under multiple independent goods. Here, those goods are interpreted as individual scientific findings.
+
+## Mathematical Setup
+
+Suppose a researcher has \( k \) semi-independent findings:
+
+\[
+X_1, X_2, ..., X_k
+\]
+
+Each of these scientific findings has a random **value distribution** \( F_i \) which we interpret as the overall expected return to the researcher _and_ to the field. This can reflect impact, utility, visibility, contribution, readability, long-term scientific influence, etc.
+
+It is also important to note that the definition of this utility function is not universal, fixed, or static. The utility function itself is a modeling choice. Different researchers, departments, labs, institutions, or collaborative entities will parameterize this utility differently. If the research work is done in a larger organization or lab, the utility ideally should not reflect only the principal investigator’s or a single graduate student's preference structure, but should reflect a weighted aggregation of the utility of all contributors, supporting staff, field stakeholders, and the scientific audience. Similarly, utility should not be narrowly viewed as a proxy for self-promotion, career acceleration, or visibility maximization. Ideally, it should incorporate the long-term scientific good, interpretability of the finding, downstream utility to the community, open knowledge value, and longevity of conceptual contribution. 
+
+For instance, this utility model can incorporate multiple components such as:
+* Expected benefit to the broader scientific field (e.g., accelerating conceptual clarity, sharpening theoretical frameworks, improving reproducibility norms)  
+* Expected translational, clinical, or public health value (e.g., improving disease burden alleviation, accelerating intervention/diagnostic discovery, or reducing preventable risk)  
+* Expected benefit to public understanding or societal discourse (e.g., clarifying a misunderstood public topic, providing scientific grounding to high-stakes policy conversations, or enabling accessible interpretation to non-specialist communities)
+* Expected citations in plausible publication venues
+* Prestige or visibility uplift from certain journal tiers
+* Acceptance probability and time-to-publish (which can serve as a discount factor), and 
+* Negative cost terms such as author workload, coordination cost, or total manuscript complexity. 
+
+In short, the utility function is flexible, multi-attribute, and parameterizable — and it is precisely this flexibility that allows the mathematical framework to be used as a general decision optimizer while reflecting different philosophical and institutional priorities in scientific publishing.
+
+In this mathematical framework, we assume:
+
+\[
+\text{Total utility if more than one finding is published is additive: }
+V = \sum_{i=1}^k X_i.
+\]
+
+### Strategy A: Publish Separately
+
+The optimal expected utility of publishing each study independently is:
+
+\[
+REV_S = \sum_{i=1}^k \sup_{p \ge 0} \; p \cdot \Pr[X_i > p]
+\]
+
+This means: for each finding, imagine there is a minimum acceptance threshold \( p \) (representing the "bar" of a given journal tier), and choose the \( p \) that maximizes expected utility. The sum across all findings gives the total expected utility from separate publication.
+
+### Strategy B: Bundle into One Flagship Paper
+
+If the researcher instead bundles all findings into one “omnibus” paper, the decision now depends on the total utility value of the entire collection:
+
+\[
+REV_B = \sup_{P \ge 0} \; P \cdot \Pr\left[ \sum_{i=1}^k X_i > P \right]
+\]
+
+This means: find the single bar \( P \) such that the expected chance the whole bundle clears the "high-impact bar" times that bar is maximized.
+
+### Optimal Decision Rule
+
+Compute **both**:
+
+
+\[
+REV_S = \sum_{i=1}^k \sup_{p \ge 0} p \cdot (1 - F_i(p))
+\]
+
+\[
+REV_B = \sup_{P \ge 0} P \cdot \left(1 - F_S(P)\right)
+\]
+
+where ($F_S$) is the distribution of ($S = \sum_{i=1}^k X_i$).
+
+Then:
+
+\[
+\text{Decision} = \max(REV_S, REV_B)
+\]
+
+The strategy that produces the higher expected utility is the strategy the researcher should pick.
+
+### Optional Hybrid Strategy (Core + Tail)
+
+One may choose to bundle the core / highest conceptual contribution portion of the findings into a single larger high-impact manuscript while publishing the smaller, niche, or tail contributions separately. In that case, partition the set of studies into two sets (C) (core) and (T) (tail):
+
+\[
+\text{Utility} = \max(REV_{SC} + REV_{BT}, ; REV_{BC} + REV_{ST})
+\]
+
+This hybrid strategy allows researchers to target extremely high-impact outlets for the conceptual backbone while also preserving clarity and readability for more specific or niche findings.
+
+## Summary and Interpretation
+
+* Mathematically, this framework gives a direct computational prescription for deciding how findings should be published.
+* If all studies have similar distributional weight and similar scientific “shape,” bundling becomes a much more viable strategy.
+* If the studies differ wildly in expected distribution, publishing separately is safer.
+* Hybrid core-tail strategies naturally fall out of this framework — not as an intuitive convenience, but as a mathematically valid optimum.
+
+Finally, in the modern era where bioRxiv, arXiv, rapid iteration science, and large language model assisted writing accelerates the scientific cycle dramatically, the **optimization of publication strategy itself becomes a necessary scientific skill** — not for gaming the system, but for structuring the scientific record efficiently, clearly, and in a way that advances knowledge coherently.
+
+The goal here is not cynicism, extraction, or self-serving incentive tuning. It is to align structure, clarity, communication, and career reality into a principled decision geometry — so that researchers can choose publication strategy rationally and responsibly given the complexity of modern science.
+
+
+
